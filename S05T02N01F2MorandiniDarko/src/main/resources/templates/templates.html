@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Player</title>
+</head>
+<head>
+    <meta charset="UTF-8">
+    <title>Player Details</title>
+</head>
+<head>
+    <meta charset="UTF-8">
+    <title>Player Results</title>
+</head>
+<head>
+    <meta charset="UTF-8">
+    <title>Game Result</title>
+</head>
+<head>
+    <meta charset="UTF-8">
+    <title>Elimination Confirmation</title>
+</head>
+<body>
+    <h1>Game Result</h1>
+    <p>Player: <span th:text="${player.name}"></span></p>
+    <p>Roll 1: <span th:text="${game.roll1}"></span></p>
+    <p>Roll 2: <span th:text="${game.roll2}"></span></p>
+    <p>Result: <span th:text="${game.won ? 'Ganaste' : 'Perdiste'}"></span></p>
+    <p>Date and Time: <span th:text="${game.timestamp}"></span></p>
+</body>
+<body>
+    <h1>Elimination Confirmation</h1>
+    <p>Continue Elimination <span th:text="${player.name}"></span>?</p>
+    <form action="/games/${player.id}" method="post">
+        <button type="submit">Eliminate Games</button>
+    </form>
+</body>
+<body>
+    <h1>Create Player</h1>
+    <form action="/players/create" method="post" th:object="${player}">
+        <div>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" th:field="*{name}" required="required" />
+        </div>
+        <button type="submit">Create Player</button>
+    </form>
+</body>
+<body>
+    <h1>Player Details</h1>
+    <p>Name: <span th:text="${player.name}"></span></p>
+    <p>Registration Date: <span th:text="${player.registrationDate}"></span></p>
+</body>
+<body>
+    <h1>Player Results</h1>
+    <h2>Player: <span th:text="${player.name}"></span></h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Result</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="game : ${games}">
+                <td th:text="${game.id}"></td>
+                <td th:text="${game.result}"></td>
+            </tr>
+        </tbody>
+    </table>
+</html>
+
